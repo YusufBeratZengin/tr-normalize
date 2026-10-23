@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="624"
+     viewBox="0 0 960 624" role="img" aria-labelledby="title description">
+  <title id="title">tr-normalize: str.lower() versus Turkish-aware functions</title>
+  <desc id="description">Real output. Red lines are Python's built-in string methods,
+    which give wrong results for Turkish; white lines come from tr-normalize.</desc>
+  <rect width="960" height="624" rx="16" fill="#0d1117"/>
+  <path d="M16 0H944Q960 0 960 16V48H0V16Q0 0 16 0Z" fill="#1c2431"/>
+  <circle cx="28" cy="24" r="6" fill="#ff605c"/>
+  <circle cx="50" cy="24" r="6" fill="#ffbd44"/>
+  <circle cx="72" cy="24" r="6" fill="#00ca4e"/>
+  <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="16">
+    <text x="480" y="30" text-anchor="middle" fill="#b6c2d4"
+      >tr-normalize | red = Python built-in</text>
+    <text x="28" y="86" fill="#8ee6b0">&gt;&gt;&gt; &quot;ISPARTA&quot;.lower()</text>
+    <text x="28" y="110" fill="#ff9b9b">&#x27;isparta&#x27;</text>
+    <text x="28" y="134" fill="#8ee6b0">&gt;&gt;&gt; tr_lower(&quot;ISPARTA&quot;)</text>
+    <text x="28" y="158" fill="#d6deeb">&#x27;ısparta&#x27;</text>
+    <text x="28" y="182" fill="#8ee6b0">&gt;&gt;&gt; &quot;İZMİR&quot;.lower()</text>
+    <text x="28" y="206" fill="#ff9b9b">&#x27;i̇zmi̇r&#x27;</text>
+    <text x="28" y="230" fill="#8ee6b0">&gt;&gt;&gt; tr_lower(&quot;İZMİR&quot;)</text>
+    <text x="28" y="254" fill="#d6deeb">&#x27;izmir&#x27;</text>
+    <text x="28" y="278" fill="#8ee6b0">&gt;&gt;&gt; &quot;istanbul&quot;.upper()</text>
+    <text x="28" y="302" fill="#ff9b9b">&#x27;ISTANBUL&#x27;</text>
+    <text x="28" y="326" fill="#8ee6b0">&gt;&gt;&gt; tr_upper(&quot;istanbul&quot;)</text>
+    <text x="28" y="350" fill="#d6deeb">&#x27;İSTANBUL&#x27;</text>
+    <text x="28" y="374" fill="#8ee6b0">&gt;&gt;&gt; tr_title(&quot;istanbul&#x27;da&quot;)</text>
+    <text x="28" y="398" fill="#d6deeb">&quot;İstanbul&#x27;da&quot;</text>
+    <text x="28" y="422" fill="#8ee6b0">&gt;&gt;&gt; sorted([&quot;şeker&quot;, &quot;çay&quot;, &quot;ılık&quot;, &quot;ilk&quot;, &quot;cam&quot;])</text>
+    <text x="28" y="446" fill="#ff9b9b">[&#x27;cam&#x27;, &#x27;ilk&#x27;, &#x27;çay&#x27;, &#x27;ılık&#x27;, &#x27;şeker&#x27;]</text>
+    <text x="28" y="470" fill="#8ee6b0">&gt;&gt;&gt; tr_sorted([&quot;şeker&quot;, &quot;çay&quot;, &quot;ılık&quot;, &quot;ilk&quot;, &quot;cam&quot;])</text>
+    <text x="28" y="494" fill="#d6deeb">[&#x27;cam&#x27;, &#x27;çay&#x27;, &#x27;ılık&#x27;, &#x27;ilk&#x27;, &#x27;şeker&#x27;]</text>
+    <text x="28" y="518" fill="#8ee6b0">$ tr-normalize slug &quot;Çığlık Atan Şöför’ün Günü!&quot;</text>
+    <text x="28" y="542" fill="#d6deeb">ciglik-atan-soforun-gunu</text>
+    <text x="28" y="566" fill="#8ee6b0">$ tr-normalize ascii &quot;Çığlık Şöför&quot;</text>
+    <text x="28" y="590" fill="#d6deeb">Ciglik Sofor</text>
+  </g>
+</svg>
