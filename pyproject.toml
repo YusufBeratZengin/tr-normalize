@@ -1,0 +1,84 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tr-normalize"
+version = "0.1.0"
+description = "Correct Turkish lower/upper/title case, sorting, ASCII folding, slugs and text normalization"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Yusuf Berat Zengin", email = "118852217+YusufBeratZengin@users.noreply.github.com" }]
+keywords = [
+  "turkish",
+  "normalization",
+  "case-conversion",
+  "casefold",
+  "slugify",
+  "collation",
+  "unicode",
+  "text-processing",
+  "nlp",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Natural Language :: Turkish",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Text Processing :: Linguistic",
+  "Typing :: Typed",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8,<10",
+  "pytest-cov>=6,<8",
+  "ruff>=0.11,<1",
+  "mypy>=1.15,<2",
+  "build>=1.2,<2",
+  "twine>=5,<8",
+]
+
+[project.urls]
+Homepage = "https://github.com/YusufBeratZengin/tr-normalize"
+Repository = "https://github.com/YusufBeratZengin/tr-normalize"
+Issues = "https://github.com/YusufBeratZengin/tr-normalize/issues"
+Changelog = "https://github.com/YusufBeratZengin/tr-normalize/blob/main/CHANGELOG.md"
+
+[project.scripts]
+tr-normalize = "tr_normalize.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tr_normalize"]
+
+[tool.hatch.build.targets.sdist]
+include = ["/src", "/tests", "/scripts", "/examples", "/docs", "/*.md", "/LICENSE", "/pyproject.toml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra --cov=tr_normalize --cov-branch --cov-report=term-missing --cov-fail-under=85"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+ignore = ["RUF001", "RUF002", "RUF003"]  # Turkish letters are intentional
+
+[tool.mypy]
+strict = true
+files = ["src", "tests", "scripts"]
+mypy_path = "src"
