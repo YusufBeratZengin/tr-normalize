@@ -6,6 +6,11 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Fixed
+
+- Preserve Greek final sigma context across Turkish I mappings in `tr_lower`.
+- Preserve word characters with custom slug separators, including when applying `max_length`.
+
 ## [0.1.0] - 2026-10-23
 
 ### Added

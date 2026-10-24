@@ -34,12 +34,18 @@ def tr_slugify(text: str, *, separator: str = "-", max_length: int | None = None
     text = unicodedata.normalize("NFKD", text)
     text = "".join(ch for ch in text if not unicodedata.combining(ch))
     text = text.encode("ascii", "ignore").decode("ascii").lower()
-    slug = _NON_ALNUM.sub(separator, text).strip(separator)
+    words = [word for word in _NON_ALNUM.split(text) if word]
+    slug = separator.join(words)
     if max_length is not None and len(slug) > max_length:
         limit = max(max_length, 0)
-        cut = slug[:limit]
-        at_boundary = slug[limit : limit + len(separator)] == separator
-        if separator and not at_boundary and separator in cut:
-            cut = cut.rsplit(separator, 1)[0]
-        slug = cut.strip(separator)
+        boundary = 0
+        if separator:
+            end = 0
+            for word in words:
+                end += len(word)
+                if end > limit:
+                    break
+                boundary = end
+                end += len(separator)
+        slug = slug[: boundary or limit]
     return slug

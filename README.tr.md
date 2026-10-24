@@ -114,8 +114,9 @@ tr-normalize sort < examples/cities.txt
 
 ## Nasıl çalışır
 
-Türkçede davranışı değişen harfler (`I`, `i`, `İ`, `ı`) elle işlenir; geri kalan karakter
-dizileri değiştirilmeden `str.lower` / `str.upper` / `str.casefold`'a verilir. Böylece
+Türkçede davranışı değişen harfler (`I`, `i`, `İ`, `ı`) elle işlenir; ardından küçültme
+ve casefold dönüşümü, Unicode bağlamını korumak için metnin tamamına uygulanır.
+Diğer büyük harf dönüşümleri `str.upper` ile yapılır. Böylece
 Yunanca sondaki sigma, `ß` ve Azerice `ə` normal Unicode davranışını korur.
 Sıralama bir demet (tuple) anahtar üretir: önce Türkçe alfabedeki konuma göre harfler, sonra aksanlar, sonra büyük/küçük harf.
 

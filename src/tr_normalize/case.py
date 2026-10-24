@@ -36,20 +36,11 @@ def _dot_index(text: str, start: int) -> int:
 
 def _lower_like(text: str, fold: bool) -> str:
     out: list[str] = []
-    plain: list[str] = []  # run of ordinary characters, converted in one go
-
-    def flush() -> None:
-        if plain:
-            chunk = "".join(plain)
-            out.append(chunk.casefold() if fold else chunk.lower())
-            plain.clear()
-
     n = len(text)
     i = 0
     while i < n:
         ch = text[i]
         if ch in ("I", "i"):
-            flush()
             dot = _dot_index(text, i)
             if dot != -1:
                 # I + dot above is "i" in Turkish; the dot is redundant, drop it.
@@ -58,13 +49,13 @@ def _lower_like(text: str, fold: bool) -> str:
                 continue
             out.append("ı" if ch == "I" else "i")
         elif ch == "İ":  # İ
-            flush()
             out.append("i")
         else:
-            plain.append(ch)
+            out.append(ch)
         i += 1
-    flush()
-    return "".join(out)
+    # Convert the whole text so Unicode casing keeps context across Turkish I.
+    mapped = "".join(out)
+    return mapped.casefold() if fold else mapped.lower()
 
 
 def tr_lower(text: str) -> str:

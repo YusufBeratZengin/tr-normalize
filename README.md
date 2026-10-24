@@ -115,8 +115,9 @@ tr-normalize sort < examples/cities.txt
 ## How it works
 
 Only the letters whose Turkish behavior differs (`I`, `i`, `İ`, `ı`) are handled by hand;
-runs of every other character are passed to `str.lower` / `str.upper` / `str.casefold`
-unchanged, so Greek final sigma, `ß` and Azerbaijani `ə` keep their normal Unicode behavior.
+lowercasing and case folding then apply to the whole mapped text, preserving Unicode
+context. Other uppercase mappings use `str.upper`, so Greek final sigma, `ß` and
+Azerbaijani `ə` keep their normal Unicode behavior.
 Sorting builds a tuple key: letters by Turkish alphabet position, then accents, then case.
 
 ## Limitations

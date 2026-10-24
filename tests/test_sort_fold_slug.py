@@ -117,6 +117,25 @@ def test_slug_separator() -> None:
 
 
 @pytest.mark.parametrize(
+    ("src", "separator", "limit", "expected"),
+    [
+        ("ankara", "a", None, "ankara"),
+        ("  ankara  ", "ar", None, "ankara"),
+        ("ankara izmir", "a", None, "ankaraaizmir"),
+        ("ankara", "a", 4, "anka"),
+        ("ankara izmir", "a", 8, "ankara"),
+        ("ankara izmir", "ar", 7, "ankara"),
+        ("bir iki", "--", 4, "bir"),
+        ("a b", r"\1", None, r"a\1b"),
+    ],
+)
+def test_slug_preserves_words_with_custom_separator(
+    src: str, separator: str, limit: int | None, expected: str
+) -> None:
+    assert tr_slugify(src, separator=separator, max_length=limit) == expected
+
+
+@pytest.mark.parametrize(
     ("src", "limit", "expected"),
     [
         ("bir iki üç dört", 100, "bir-iki-uc-dort"),
